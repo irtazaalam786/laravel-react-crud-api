@@ -39,26 +39,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'title'=>'required',
             'description'=>'required',
-            'image'=>'required|image'
+            'image'=>'required|image',
+            'designation'=>'required',
         ]);
 
-        try{
+        // dd($request->post());
+
+        // try{
             $imageName = Str::random().'.'.$request->image->getClientOriginalExtension();
             Storage::disk('public')->putFileAs('product/image', $request->image,$imageName);
+            // dd($request->all()+['image'=>$imageName]);
             Product::create($request->post()+['image'=>$imageName]);
 
             return response()->json([
                 'message'=>'Product Created Successfully!!'
             ]);
-        }catch(\Exception $e){
-            \Log::error($e->getMessage());
-            return response()->json([
-                'message'=>'Something goes wrong while creating a product!!'
-            ],500);
-        }
+        // }catch(\Exception $e){
+        //     \Log::error($e->getMessage());
+        //     return response()->json([
+        //         'message'=>'Something goes wrong while creating a product!!'
+        //     ],500);
+        // }
     }
 
     /**
@@ -97,7 +102,8 @@ class ProductController extends Controller
         $request->validate([
             'title'=>'required',
             'description'=>'required',
-            'image'=>'nullable'
+            'image'=>'nullable',
+            'designation'=>'required',
         ]);
 
         try{
@@ -154,7 +160,7 @@ class ProductController extends Controller
             return response()->json([
                 'message'=>'Product Deleted Successfully!!'
             ]);
-            
+
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json([
