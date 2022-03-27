@@ -13,5 +13,5 @@ class Product extends Model
         'designation' => 'array',
     ];
 
-    protected $fillable = ['title', 'description', 'image','designation'];
+    protected $fillable = ['title', 'description', 'image','designation','gender'];
 }

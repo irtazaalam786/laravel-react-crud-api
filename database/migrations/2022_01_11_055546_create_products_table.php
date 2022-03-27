@@ -18,7 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('image');
-            $table->text('designation');
+            $table->string('designation');
+            $table->string('gender');
             $table->timestamps();
         });
     }

@@ -2,6 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +19,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\ProductController;
+Route::post('register', [RegisterController::class, 'register']);
+Route::post('login', [RegisterController::class, 'login']);
 
-Route::resource('products',ProductController::class);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->group( function () {
+    Route::get('all_roles',[RoleController::class,'all_roles']);
+    Route::resource('products',ProductController::class);
+    Route::resource('roles',RoleController::class);
+    Route::resource('users',UserController::class);
+    Route::resource('permissions',PermissionController::class);
+// });
